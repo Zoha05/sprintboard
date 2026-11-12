@@ -1,0 +1,20 @@
+# Optional: needs an ingress controller (minikube: `minikube addons enable ingress`)
+# kubectl apply -f k8s/optional/ingress.yaml   then add "<cluster-ip> sprintboard.local" to your hosts file
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sprintboard
+  namespace: sprintboard
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: sprintboard.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: sprintboard
+                port:
+                  number: 80

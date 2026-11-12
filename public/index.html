@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SprintBoard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>SprintBoard</h1>
+    <div class="toolbar">
+      <select id="sprintSelect" aria-label="Choose sprint"></select>
+      <span id="dbStatus" class="pill">checking…</span>
+    </div>
+  </header>
+
+  <main>
+    <details class="card" id="newSprint">
+      <summary>+ New sprint</summary>
+      <form id="sprintForm" class="row">
+        <input name="name" placeholder="Sprint name" required maxlength="100">
+        <input name="goal" placeholder="Goal (optional)">
+        <label>Start <input type="date" name="start_date" required></label>
+        <label>End <input type="date" name="end_date" required></label>
+        <button type="submit">Create sprint</button>
+      </form>
+    </details>
+
+    <p id="message" role="status"></p>
+
+    <section id="sprintInfo" class="card hidden">
+      <div class="info-top">
+        <div>
+          <h2 id="sprintName"></h2>
+          <p id="sprintMeta" class="muted"></p>
+        </div>
+        <div class="row">
+          <select id="statusSelect" aria-label="Sprint status">
+            <option value="planned">Planned</option>
+            <option value="active">Active</option>
+            <option value="completed">Completed</option>
+          </select>
+          <button id="deleteSprint" class="danger">Delete sprint</button>
+        </div>
+      </div>
+      <div class="progress"><div id="bar"></div></div>
+      <p id="progressText" class="muted"></p>
+    </section>
+
+    <form id="taskForm" class="card row hidden">
+      <input name="title" placeholder="New task title" required maxlength="200">
+      <input name="assignee" placeholder="Assignee">
+      <input name="storyPoints" type="number" min="0" max="100" value="1" aria-label="Story points">
+      <button type="submit">Add task</button>
+    </form>
+
+    <div id="board" class="board hidden">
+      <section class="col" data-status="todo"><h3>To do <span class="count"></span></h3><div class="list"></div></section>
+      <section class="col" data-status="in_progress"><h3>In progress <span class="count"></span></h3><div class="list"></div></section>
+      <section class="col" data-status="done"><h3>Done <span class="count"></span></h3><div class="list"></div></section>
+    </div>
+
+    <p id="empty" class="muted center">Create a sprint to get started.</p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
